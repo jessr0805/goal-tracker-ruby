@@ -14,7 +14,7 @@ loop do
     puts "\nWhere would you like to go?"
     puts 
     puts "1. 📊 Dashboard"
-    puts "2. ➕ Create Goal?"
+    puts "2. ➕ Create Goal"
     puts "3. 📈 Update Progress"
     puts "4. 🔍 Find Goal"
     puts "5. 📅 Upcoming Deadlines"
@@ -34,17 +34,17 @@ loop do
         end
     when 2
         print "Goal Name: "
-        new_goal_name = gets.chomp
+        new_goal_name = gets.chomp.downcase
         print "Category: "
-        new_goal_category = gets.chomp
+        new_goal_category = gets.chomp.downcase
         print "Progress: "
         new_goal_progress = gets.chomp.to_i
         print "Target: "
         new_goal_target = gets.chomp.to_i
         print "Unit: "
-        new_goal_unit = gets.chomp
+        new_goal_unit = gets.chomp.downcase
         print "Deadline: "
-        new_goal_deadline = gets.chomp
+        new_goal_deadline = gets.chomp.downcase
         new_goal = {
             "name" => new_goal_name,
             "category" => new_goal_category,
@@ -54,6 +54,27 @@ loop do
             "deadline" => new_goal_deadline
         }
         current_goals << new_goal
+when 3
+    found = false
+    puts "Which goal's progress would you like to update?"
+    puts "Your current goals are as follows: "
+    goals["current"].each do |current|
+        puts "#{current["name"]}"
+    end
+    change_goal = gets.chomp.downcase
+    goals["current"].each do |current|
+        if change_goal == current["name"]
+            print "What is the current progress of #{change_goal}? "
+            new_progress = gets.chomp.to_i
+            current["progress"] = new_progress
+            found = true
+        end
+    end
+    if found == false
+        puts "We weren't able to find your goal titled '#{change_goal}'"
+    else
+        puts "Great! Your progress in #{change_goal} has been updated!"
+    end
     when 7
         puts "Are you sure you want to leave?"
         leave = gets.chomp.downcase
