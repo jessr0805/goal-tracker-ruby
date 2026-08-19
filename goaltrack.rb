@@ -54,27 +54,43 @@ loop do
             "deadline" => new_goal_deadline
         }
         current_goals << new_goal
-when 3
-    found = false
-    puts "Which goal's progress would you like to update?"
-    puts "Your current goals are as follows: "
-    goals["current"].each do |current|
-        puts "#{current["name"]}"
-    end
-    change_goal = gets.chomp.downcase
-    goals["current"].each do |current|
-        if change_goal == current["name"]
-            print "What is the current progress of #{change_goal}? "
-            new_progress = gets.chomp.to_i
-            current["progress"] = new_progress
-            found = true
+    when 3
+        found = false
+        puts "Which goal's progress would you like to update?"
+        puts "Your current goals are as follows: "
+        goals["current"].each do |current|
+            puts "#{current["name"]}"
         end
-    end
-    if found == false
-        puts "We weren't able to find your goal titled '#{change_goal}'"
-    else
-        puts "Great! Your progress in #{change_goal} has been updated!"
-    end
+        change_goal = gets.chomp.downcase
+        goals["current"].each do |current|
+            if change_goal == current["name"]
+                print "What is the current progress of #{change_goal}? "
+                new_progress = gets.chomp.to_i
+                current["progress"] = new_progress
+                found = true
+            end
+        end
+        if found == false
+            puts "We weren't able to find your goal titled '#{change_goal}'"
+        else
+            puts "Great! Your progress in #{change_goal} has been updated!"
+        end
+    when 4
+        found_goal = false
+        puts "Which goal are you trying to find?"
+        find_goal = gets.chomp.downcase
+        goals["current"].each do |current|
+            if find_goal == current["name"]
+                found_goal = true
+                puts "🎯 Goal: #{current["name"]}"
+                puts "📂 Category: #{current["category"]}"
+                puts "📊 Progress: #{current["progress"]} / #{current["target"]} #{current["unit"]}"
+                puts "📅 Deadline: #{current["deadline"]}"
+            end
+        end
+        if found_goal == false
+            puts "We weren't able to find your goal titled '#{find_goal}'"
+        end
     when 7
         puts "Are you sure you want to leave?"
         leave = gets.chomp.downcase
