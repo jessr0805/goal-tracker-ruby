@@ -4,13 +4,19 @@ goals = {
     "current" => current_goals,
     "past" => past_goals
 }
+total_progress = 0
+total_target = 0
+goals["current"].each do |current|
+    total_progress += current["progress"]
+    total_target += current["target"]
+end
 loop do
     puts "====================================="
     puts "          🎯 GOAL TRACKER           "
     puts "====================================="
-    puts "\n📊 Active Goals: "
-    puts "🏆 Completed: "
-    puts "📈 Overall Progress: "
+    puts "\n📊 Active Goals: #{goals["current"].length}"
+    puts "🏆 Completed: #{goals["past"].length}"
+    puts "📈 Overall Progress: #{total_progress}/#{total_target}"
     puts "\nWhere would you like to go?"
     puts 
     puts "1. 📊 Dashboard"
@@ -26,11 +32,18 @@ loop do
     case location_choice
     when 1
         puts "Welcome to the dashboard!"
+        puts "Here are your active projects: "
         goals["current"].each do |current|
             puts "🎯 Goal: #{current["name"]}"
             puts "📂 Category: #{current["category"]}"
             puts "📊 Progress: #{current["progress"]} / #{current["target"]} #{current["unit"]}"
             puts "📅 Deadline: #{current["deadline"]}"
+        end
+        goals["past"].each do |past|
+            puts "🎯 Goal: #{past["name"]}"
+            puts "📂 Category: #{past["category"]}"
+            puts "📊 Progress: #{past["progress"]} / #{past["target"]} #{past["unit"]}"
+            puts "📅 Deadline: #{past["deadline"]}"
         end
     when 2
         print "Goal Name: "
