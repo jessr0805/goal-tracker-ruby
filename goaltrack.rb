@@ -91,6 +91,12 @@ loop do
         if found_goal == false
             puts "We weren't able to find your goal titled '#{find_goal}'"
         end
+    when 5
+        puts "📆 Upcoming Deadlines"
+        goals["current"].each do |current|
+            puts "\nGoal: #{current["name"]}"
+            puts "Deadline: #{current["deadline"]}"
+        end
     when 7
         puts "Are you sure you want to leave?"
         leave = gets.chomp.downcase
