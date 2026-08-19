@@ -18,7 +18,7 @@ loop do
     puts "3. 📈 Update Progress"
     puts "4. 🔍 Find Goal"
     puts "5. 📅 Upcoming Deadlines"
-    puts "6. 🏆 Completed Goals"
+    puts "6. 🏆 Complete Goal"
     puts "7. 💾 Save & Exit"
     puts
     print "\nChoice: "
@@ -96,6 +96,22 @@ loop do
         goals["current"].each do |current|
             puts "\nGoal: #{current["name"]}"
             puts "Deadline: #{current["deadline"]}"
+        end
+    when 6
+        puts "Which goal have you completed?"
+        complete_input = gets.chomp.downcase
+        found = false
+        goals["current"].each do |current|
+            if current["name"] == complete_input
+                goals["current"].delete(current)
+                goals["past"] << current
+                found = true
+            end
+        end
+        if found == false
+            puts "We weren't able to find your goal titled '#{complete_input}'"
+        else
+            puts "#{complete_input} has been moved to your past goal! Congrats on finishing!"
         end
     when 7
         puts "Are you sure you want to leave?"
